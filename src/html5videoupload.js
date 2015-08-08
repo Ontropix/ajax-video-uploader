@@ -263,7 +263,7 @@
             }
         }
 
-        if (typeof mixed_var === 'object') {
+        if (typeof arg === 'object') {
             for (key in arg) {
                 return false;
             }
