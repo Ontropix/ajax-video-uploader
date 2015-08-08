@@ -1,2 +1,29 @@
-﻿<h2>Index</h2>
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Html5 ajax video uploader example</title>
+        
+        <link href="/Content/html5videoupload.css" rel="stylesheet"  />
+
+        <script type="text/javascript" src="/Scripts/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="/Scripts/html5videoupload.js"></script>
+        
+        
+
+    </head>
+   
+    <body>
+
+        <div class="videozone"
+             data-url="/Home/Upload"
+             style="width: 300px; height: 300px">
+            <input type="file" name="video" />
+        </div>
+
+        <script type="text/javascript">
+            $('.videozone').html5videoupload();
+        </script>
+
+    </body>
+</html>
 

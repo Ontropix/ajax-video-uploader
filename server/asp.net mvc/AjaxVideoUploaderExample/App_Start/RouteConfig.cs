@@ -9,6 +9,12 @@ namespace AjaxVideoUploaderExample
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Ignore everything in the Content folder.
+            routes.IgnoreRoute("Content/{*pathInfo}");
+
+            // Ignore everything in the Scripts folder.
+            routes.IgnoreRoute("Scripts/{*pathInfo}");
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
