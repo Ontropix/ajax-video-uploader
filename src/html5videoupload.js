@@ -92,7 +92,10 @@
             $(element).unbind('drop').on({
                 drop: function (event) {
                     _self.handleFile(event, $(this));
-                }
+                },
+                dragover: function (event) {
+                    _self.handleDrag(event);
+                },
             });
 
             $(input).unbind('change').change(function (event) {
@@ -101,14 +104,22 @@
             });
         },
 
+        handleDrag: function (event) {
+            var _self = this;
+            _self.drag = true;
+            event.stopPropagation();
+            event.preventDefault();
+            event.originalEvent.dataTransfer.dropEffect = 'copy';
+        },
+
         handleFile: function (event, element) {
             event.stopPropagation();
             event.preventDefault();
 
             var _self = this;
-            var files = event.originalEvent.target.files;
+            var files = (_self.drag == false) ? event.originalEvent.target.files : event.originalEvent.dataTransfer.files; // FileList object.
 
-            $(element).removeClass('notAnImage').addClass('loading');
+            $(element).removeClass('notAnVideo').addClass('loading');
 
             for (var i = 0, f; f = files[i]; i++) {
 
