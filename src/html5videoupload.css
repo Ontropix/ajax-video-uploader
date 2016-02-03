@@ -1,43 +1,183 @@
 ﻿@charset "utf-8";
 
-.videozone						{ background-color: #eeeeee; text-align: center; position: relative; border: 1px solid #dddddd; display: inline-block;  }
-.videozone:after			    { content: 'Drop your video here or click to add one!'; font-size: 24px; color: #bbbbbb; position: absolute; bottom: 60%; left: 0; width: 100%; text-align: center; z-index:0;}
-.videozone:before				{ content: ''; font-family:"Glyphicons Halflings"; font-size: 60px; color: #dbdbdb; position: absolute; top: 40%; left: 0; width: 100%; text-align: center; z-index:0;}
+.videozone {
+    background-color: #eeeeee;
+    text-align: center;
+    position: relative;
+    border: 1px solid #dddddd;
+    display: inline-block;
+}
 
-.videozone.loading:after			{ content: 'Please wait, video is loading'; }
-.videozone.loading:before		{ content: ''; }
+    .videozone:after {
+        content: 'Drop your video here or click to add one!';
+        font-size: 24px;
+        color: #bbbbbb;
+        position: absolute;
+        bottom: 60%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 0;
+    }
 
-.videozone.done:after			{ content: '';}
-.videozone.done:before			{ content: '';}
+    .videozone:before {
+        content: '';
+        font-family: "Glyphicons Halflings";
+        font-size: 60px;
+        color: #dbdbdb;
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 0;
+    }
 
-/* Not a video */
-.videozone.notAnVideo			{ background-color: #f2dede; border-color: #ebccd1; }
-.videozone.notAnVideo:after		{ content: 'The selected file is not a mp4 video!'; color: #a94442; }
-.videozone.notAnVideo:before    { content: ''; color: #ebccd1; }
+    .videozone.loading:after {
+        content: 'Please wait, video is loading';
+    }
 
-.videozone.alert-danger			{ background-color: #f2dede; }
-.videozone.alert-danger:after	{ content: ''; }
+    .videozone.loading:before {
+        content: '';
+    }
 
-.videozone.smalltext:before,
-.videozone.smalltext:after		{ font-size: 20px; }
+    .videozone.done:after {
+        content: '';
+    }
 
-.videozone > span				{ font-size: 30px; color: #bbbbbb; position: absolute; top: 35%; left: 0; width: 100%; text-align: center; z-index:0;}
-.videozone > span.loader			{ display: none; }
-.videozone > input[type=file]	{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; opacity: 0; cursor: pointer; z-index:2; height: 100% }
-.videozone > input[type=text]	{ display: none; }
+    .videozone.done:before {
+        content: '';
+    }
 
-.videozone .progress				{ bottom: 10px; left: 10px; right: 10px; display: none;  }
+    /* not an video */
+    .videozone.notAnVideo {
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
 
-.videozone .cropWrapper			{ overflow: hidden; position: absolute; top:0; bottom: 0; left: 0; right: 0; z-index: 10; background-color: #eeeeee;  text-align: left;}
+        .videozone.notAnVideo:after {
+            content: 'The selected file is not a mp4 video!';
+            color: #a94442;
+        }
 
-.videozone video					{ z-index: 5; position: relative; }
-.videozone img.preview			{ width: 100%; }
+        .videozone.notAnVideo:before {
+            content: '';
+            color: #ebccd1;
+        }
 
-.videozone .tools				{ position: absolute; top: 10px; right: 10px; z-index: 999; display: inline-block; }
-.videozone .tools > *			{ margin: 0 0 0 5px; }
+    .videozone.alert-danger {
+        background-color: #f2dede;
+    }
 
-.videozone.smalltools .tools .btn	{ padding: 1px 4px; font-size: 12px; }
+        .videozone.alert-danger:after {
+            content: '';
+        }
 
-.videozone .download				{ position: absolute; bottom: 10px; left: 10px; z-index: 999; display: inline-block; }
-.videozone .download > *			{ margin: 0 0 0 5px; }
+    .videozone.smalltext:before,
+    .videozone.smalltext:after {
+        font-size: 20px;
+    }
 
+    .videozone.maxSizeExceeded {
+        background-color: #f2dede;
+        border-color: #ebccd1;
+    }
+
+     .videozone.maxSizeExceeded:after {
+            content: 'Max video size exceeded!';
+            color: #a94442;
+        }
+
+        .videozone.maxSizeExceeded:before {
+            content: '';
+            color: #ebccd1;
+        }
+
+    .videozone > span {
+        font-size: 30px;
+        color: #bbbbbb;
+        position: absolute;
+        top: 35%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 0;
+    }
+
+        .videozone > span.loader {
+            display: none;
+        }
+
+    .videozone > input[type=file] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+        height: 100%; /* IE HACK*/
+    }
+
+    .videozone > input[type=text] {
+        display: none;
+    }
+
+    .videozone .progress {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        display: none;
+    }
+
+    .videozone .cropWrapper {
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background-color: #eeeeee;
+        text-align: left;
+    }
+
+    .videozone video {
+        z-index: 5;
+        position: relative;
+    }
+
+    .videozone img.preview {
+        width: 100%;
+    }
+
+    .videozone .tools {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 999;
+        display: inline-block;
+    }
+
+        .videozone .tools > * {
+            margin: 0 0 0 5px;
+        }
+
+    .videozone.smalltools .tools .btn {
+        padding: 1px 4px;
+        font-size: 12px;
+    }
+
+    .videozone .download {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        z-index: 999;
+        display: inline-block;
+    }
+
+        .videozone .download > * {
+            margin: 0 0 0 5px;
+        }

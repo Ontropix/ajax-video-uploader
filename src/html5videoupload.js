@@ -1,15 +1,10 @@
-/*
- *   Create by Andrei Shneider
- *   http://code9.biz
-*/
-
 (function (window, $, undefined) {
     "use strict";
 
-    $.html5videoupload = function html5videoupload(options, element) {
+    $.html5videoload = function html5videoload(options, element) {
 
         this.element = element;
-        this.options = $.extend(true, {}, $.html5videoupload.defaults, options, $(this.element).data());
+        this.options = $.extend(true, {}, $.html5videoload.defaults, options, $(this.element).data());
         this.input = $(this.element).find('input[type=file]');
 
         var _self = this;
@@ -26,7 +21,7 @@
 
     };
 
-    $.html5videoupload.defaults = {
+    $.html5videoload.defaults = {
 
         //url to upload service
         url: null,
@@ -35,10 +30,12 @@
         video: null,
 
         onAfterProcessVideo: null,
-        onAfterCancel: null
+        onAfterCancel: null,
+
+        maxSize: 8388608 //8 MB
     };
 
-    $.html5videoupload.prototype = {
+    $.html5videoload.prototype = {
         _init: function () {
 
             var _self = this;
@@ -125,6 +122,11 @@
 
                 if (!f.type.match('video/mp4')) {
                     $(element).addClass('notAnVideo');
+                    continue;
+                }
+
+                if (f.size > _self.options.maxSize) {
+                    $(element).addClass('maxSizeExceeded');
                     continue;
                 }
 
@@ -257,30 +259,11 @@
         }
     }
 
-    $.fn.html5videoupload = function (options) {
-        if ($.data(this, "html5videoupload")) return;
+    $.fn.html5videoload = function (options) {
+        if ($.data(this, "html5videoload")) return;
         return $(this).each(function () {
-            $.data(this, "html5videoupload", new $.html5videoupload(options, this));
+            $.data(this, "html5videoload", new $.html5videoload(options, this));
         });
-    }
-
-    function empty(arg) {
-        var undef, key, i, len;
-        var emptyValues = [undef, null, false, 0, '', '0'];
-
-        for (i = 0, len = emptyValues.length; i < len; i++) {
-            if (arg === emptyValues[i]) {
-                return true;
-            }
-        }
-
-        if (typeof arg === 'object') {
-            for (key in arg) {
-                return false;
-            }
-            return true;
-        }
-        return false;
     }
 
 })(window, jQuery);
