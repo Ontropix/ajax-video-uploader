@@ -9,7 +9,7 @@ HTML5 ajax video uploader
 
 ### Usage
 ```html
-  <div class="videozone col-md-3"
+  <div class="videozone"
        data-url="/Home/Upload"
        style="width: 300px; height: 200px">
       <input type="file" name="video" />
@@ -22,6 +22,7 @@ HTML5 ajax video uploader
   </script>
 ```
 
-
+### Server side
+See an [example](https://github.com/Ontropix/ajax-video-uploader/tree/master/server/asp.net%20mvc) of usage in asp.net mvc
 
 
