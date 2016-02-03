@@ -86,7 +86,7 @@
     </Content>
     <Content Include="..\..\..\src\html5videoupload.js">
       <Link>Scripts\html5videoupload.js</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

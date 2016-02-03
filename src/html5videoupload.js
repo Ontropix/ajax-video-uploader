@@ -1,10 +1,10 @@
 (function (window, $, undefined) {
     "use strict";
 
-    $.html5videoload = function html5videoload(options, element) {
+    $.html5videoupload = function html5videoupload(options, element) {
 
         this.element = element;
-        this.options = $.extend(true, {}, $.html5videoload.defaults, options, $(this.element).data());
+        this.options = $.extend(true, {}, $.html5videoupload.defaults, options, $(this.element).data());
         this.input = $(this.element).find('input[type=file]');
 
         var _self = this;
@@ -21,7 +21,7 @@
 
     };
 
-    $.html5videoload.defaults = {
+    $.html5videoupload.defaults = {
 
         //url to upload service
         url: null,
@@ -35,7 +35,7 @@
         maxSize: 8388608 //8 MB
     };
 
-    $.html5videoload.prototype = {
+    $.html5videoupload.prototype = {
         _init: function () {
 
             var _self = this;
@@ -116,7 +116,7 @@
             var _self = this;
             var files = (_self.drag == false) ? event.originalEvent.target.files : event.originalEvent.dataTransfer.files; // FileList object.
 
-            $(element).removeClass('notAnVideo').addClass('loading');
+            $(element).removeClass('notAnVideo').removeClass('maxSizeExceeded').addClass('loading');
 
             for (var i = 0, f; f = files[i]; i++) {
 
@@ -259,10 +259,30 @@
         }
     }
 
-    $.fn.html5videoload = function (options) {
-        if ($.data(this, "html5videoload")) return;
+    function empty(arg) {
+        var undef, key, i, len;
+        var emptyValues = [undef, null, false, 0, '', '0'];
+
+        for (i = 0, len = emptyValues.length; i < len; i++) {
+            if (arg === emptyValues[i]) {
+                return true;
+            }
+        }
+
+        if (typeof arg === 'object') {
+            for (key in arg) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+    $.fn.html5videoupload = function (options) {
+        if ($.data(this, "html5videoupload")) return;
         return $(this).each(function () {
-            $.data(this, "html5videoload", new $.html5videoload(options, this));
+            $.data(this, "html5videoupload", new $.html5videoupload(options, this));
         });
     }
 

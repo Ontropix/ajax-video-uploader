@@ -194,3 +194,5 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+server/asp.net mvc/AjaxVideoUploaderExample/Content/html5videoupload.css
+server/asp.net mvc/AjaxVideoUploaderExample/Scripts/html5videoupload.js
