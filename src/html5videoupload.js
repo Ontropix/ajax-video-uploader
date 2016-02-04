@@ -1,4 +1,4 @@
-(function (window, $, undefined) {
+(function (window, $) {
     "use strict";
 
     $.html5videoupload = function html5videoupload(options, element) {
@@ -7,7 +7,7 @@
         this.options = $.extend(true, {}, $.html5videoupload.defaults, options, $(this.element).data());
         this.input = $(this.element).find('input[type=file]');
 
-        var _self = this;
+        var self = this;
 
         //buttons
         this.button = {}
@@ -17,7 +17,7 @@
         this.button.done = '<div class="btn btn-success btn-ok" title="' + (this.options.okTitle || 'Ok') + '"><i class="glyphicon glyphicon-ok"></i></div>';
         this.button.del = '<div class="btn btn-danger btn-del" title="' + (this.options.delTitle || 'Delete') + '"><i class="glyphicon glyphicon-trash"></i></div>';
 
-        _self._init();
+        self._init();
 
     };
 
@@ -38,9 +38,9 @@
     $.html5videoupload.prototype = {
         _init: function () {
 
-            var _self = this;
-            var element = _self.element;
-            var options = _self.options;
+            var self = this;
+            var element = self.element;
+            var options = self.options;
 
             if (empty($(element))) {
                 return false;
@@ -54,7 +54,7 @@
                 return false;
             }
 
-            _self._bind();
+            self._bind();
 
             if (!empty(options.video)) {
 
@@ -69,7 +69,7 @@
 
                 $(del).unbind('click').click(function(e) {
                     e.preventDefault();
-                    _self.reset();
+                    self.reset();
                 });
 								
                 $(tools).append(del);
@@ -81,29 +81,29 @@
         },
 
         _bind: function () {
-            var _self = this;
-            var element = _self.element;
-            var input = _self.input;
+            var self = this;
+            var element = self.element;
+            var input = self.input;
 
             //bind the events
             $(element).unbind('drop').on({
                 drop: function (event) {
-                    _self.handleFile(event, $(this));
+                    self.handleFile(event, $(this));
                 },
                 dragover: function (event) {
-                    _self.handleDrag(event);
+                    self.handleDrag(event);
                 },
             });
 
             $(input).unbind('change').change(function (event) {
-                _self.drag = false;
-                _self.handleFile(event, $(element));
+                self.drag = false;
+                self.handleFile(event, $(element));
             });
         },
 
         handleDrag: function (event) {
-            var _self = this;
-            _self.drag = true;
+            var self = this;
+            self.drag = true;
             event.stopPropagation();
             event.preventDefault();
             event.originalEvent.dataTransfer.dropEffect = 'copy';
@@ -113,8 +113,8 @@
             event.stopPropagation();
             event.preventDefault();
 
-            var _self = this;
-            var files = (_self.drag == false) ? event.originalEvent.target.files : event.originalEvent.dataTransfer.files; // FileList object.
+            var self = this;
+            var files = (self.drag == false) ? event.originalEvent.target.files : event.originalEvent.dataTransfer.files; // FileList object.
 
             $(element).removeClass('notAnVideo').removeClass('maxSizeExceeded').addClass('loading');
 
@@ -125,7 +125,7 @@
                     continue;
                 }
 
-                if (f.size > _self.options.maxSize) {
+                if (f.size > self.options.maxSize) {
                     $(element).addClass('maxSizeExceeded');
                     continue;
                 }
@@ -136,7 +136,7 @@
                 $(element).append($('<div class="final" style="background: black"><video controls style="height: 200px; width: 300px"></video></div>'));
                 $(element).find('video').attr('src', src);
 
-                _self._tools();
+                self._tools();
 
                 //clean up
                 $(element).removeClass('loading');
@@ -144,22 +144,22 @@
         },
 
         _tools: function () {
-            var _self = this;
-            var element = _self.element;
+            var self = this;
+            var element = self.element;
             var tools = $('<div class="tools"></div>');
 
             //cancel button (removes the image and resets it to the original init event
-            $(tools).append($(_self.button.cancel).on({
+            $(tools).append($(self.button.cancel).on({
                 'touchstart touchend click': function (e) {
                     e.preventDefault();
-                    _self.reset();
+                    self.reset();
                 }
             }));
 
-            $(tools).append($(_self.button.done).on({
+            $(tools).append($(self.button.done).on({
                 'touchstart click': function (e) {
                     e.preventDefault();
-                    _self.videoSave();
+                    self.videoSave();
                 }
             }));
 
@@ -167,15 +167,15 @@
         },
 
         videoSave: function () {
-            var _self = this;
-            var element = _self.element;
-            var options = _self.options;
+            var self = this;
+            var element = self.element;
+            var options = self.options;
 
             $(element).find('.tools').children().toggle();
-            $(element).find('.tools').append($(_self.button.saving));
+            $(element).find('.tools').append($(self.button.saving));
 
             var formdata = new FormData();
-            formdata.append("Video", _self.input[0].files[0]);
+            formdata.append("Video", self.input[0].files[0]);
 
             $.ajax({
                 type: 'POST',
@@ -193,27 +193,27 @@
 
                         $(element).data('video', response.video);
 
-                        _self.videoFinal();
+                        self.videoFinal();
 
                     } else {
                         $(element).find('.tools .saving').remove();
                         $(element).find('.tools').children().toggle();
                         $(element).append($('<div class="alert alert-danger">' + response.error + '</div>').css({ bottom: '10px', left: '10px', right: '10px', position: 'absolute', zIndex: 99 }));
-                        setTimeout(function () { _self.responseReset(); }, 2000);
+                        setTimeout(function () { self.responseReset(); }, 2000);
                     }
                 },
                 error: function (response, status) {
                     $(element).find('.tools .saving').remove();
                     $(element).find('.tools').children().toggle();
                     $(element).append($('<div class="alert alert-danger"><strong>' + response.status + '</strong> ' + response.statusText + '</div>').css({ bottom: '10px', left: '10px', right: '10px', position: 'absolute', zIndex: 99 }));
-                    setTimeout(function () { _self.responseReset(); }, 2000);
+                    setTimeout(function () { self.responseReset(); }, 2000);
                 }
             });
         },
 
         videoFinal: function () {
-            var _self = this;
-            var element = _self.element;
+            var self = this;
+            var element = self.element;
 
             //remove all children except final
             $(element).addClass('done');
@@ -223,8 +223,8 @@
             var tools = $('<div class="tools final">');
 
             //delete option after crop
-            $(tools).append($(_self.button.del).click(function () {
-                _self.reset();
+            $(tools).append($(self.button.del).click(function () {
+                self.reset();
             }));
 
             //append tools to element
@@ -232,12 +232,12 @@
             $(element).unbind();
 
             //custom function after process image;
-            if (_self.options.onAfterProcessVideo) _self.options.onAfterProcessVideo.call(_self, _self);
+            if (self.options.onAfterProcessVideo) self.options.onAfterProcessVideo.call(self, self);
         },
 
         responseReset: function () {
-            var _self = this;
-            var element = _self.element;
+            var self = this;
+            var element = self.element;
 
             //remove responds from ajax event
             $(element).find('.alert').remove();
@@ -245,17 +245,17 @@
         },
 
         reset: function () {
-            var _self = this;
-            var element = _self.element;
-            var input = _self.input;
+            var self = this;
+            var element = self.element;
+            var input = self.input;
 
             $(element).removeClass('loading done').children().show().not('input[type=file]').remove();
             $(input).val('');
-            _self._bind();
+            self._bind();
 
             $(element).data('video', null);
 
-            if (_self.options.onAfterCancel) _self.options.onAfterCancel.call(_self);
+            if (self.options.onAfterCancel) self.options.onAfterCancel.call(self);
         }
     }
 

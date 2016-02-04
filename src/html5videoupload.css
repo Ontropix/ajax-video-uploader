@@ -73,17 +73,12 @@
             content: '';
         }
 
-    .videozone.smalltext:before,
-    .videozone.smalltext:after {
-        font-size: 20px;
-    }
-
     .videozone.maxSizeExceeded {
         background-color: #f2dede;
         border-color: #ebccd1;
     }
 
-     .videozone.maxSizeExceeded:after {
+        .videozone.maxSizeExceeded:after {
             content: 'Max video size exceeded!';
             color: #a94442;
         }
@@ -123,25 +118,6 @@
 
     .videozone > input[type=text] {
         display: none;
-    }
-
-    .videozone .progress {
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
-        display: none;
-    }
-
-    .videozone .cropWrapper {
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
-        background-color: #eeeeee;
-        text-align: left;
     }
 
     .videozone video {
