@@ -27,14 +27,11 @@ See an [example](https://github.com/Ontropix/ajax-video-uploader/tree/master/ser
 
 ### Properties
 *url* - url to upload the file
-
 *video* - path to a video preview
-
 *maxSize* - max size of a video file
 
 ### Events
 *onAfterProcessVideo* - occurs after uploading a video file
-
 *onAfterCancel* - occurs when the user canceled uploading video
 
 ### TODO
